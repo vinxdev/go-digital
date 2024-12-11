@@ -1,0 +1,32 @@
+<p>error works!</p>
+<div class="mt-2 p-2 bg-secondary text-white rounded">
+    <h1>Error handling</h1>
+    <h5>try/catch</h5>
+</div>
+<div>
+    <ul>
+        <li *ngFor="let user of users">
+          {{ user.name }}
+          <button (click)="getUserById(user.id)">View</button>
+          <!-- <button (click)="deleteUser(user.id)">Delete</button> -->
+        </li>
+      </ul>
+</div>
+
+<p>{{title}}</p>
+<button (click)="sort()">Fetch data</button>
+<ng-template #error>
+    <p>Error while fetching data</p>
+</ng-template>
+
+<div *ngIf="erro">
+    <ng-container *ngTemplateOutlet="error">
+    </ng-container>
+</div>
+
+<div *ngIf="selectedUser">
+    <h2>Selected User</h2>
+    <p>ID: {{ selectedUser.id }}</p>
+    <p>Name: {{ selectedUser.name }}</p>
+    <p>Email: {{ selectedUser.email }}</p>
+</div>

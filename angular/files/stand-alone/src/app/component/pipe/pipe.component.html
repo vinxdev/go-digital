@@ -1,0 +1,73 @@
+<p class="mt-4">pipe works!</p>
+<div class="p-2 bg-secondary text-white rounded">
+    <h1>Pipes</h1>
+    <h5 class="text-black"></h5>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>Uppercase</p>
+        Original Value - {{firstname}}
+        <br>
+        After Pipe - {{ firstname | uppercase }}
+    </div>
+    <div class="col-3">
+        <p>lowercase</p>
+        Original Value - {{firstname}}
+        <br>
+        After Pipe - {{ firstname | lowercase }}
+    </div>
+    <div class="col-3">
+        <p>titlecase</p>
+        Original Value - {{firstname}}
+        <br>
+        After Pipe - {{ firstname | titlecase }}
+    </div>
+    <div class="col-3">
+        <p>Date</p>
+        Original Value - {{currentdate}}
+        <br>
+        After Pipe - {{ currentdate | date : 'dd-MMM-yyyy'}}
+    </div>
+    <div class="col-3">
+        <p>Currency</p>
+        Original Value - {{currency}}
+        <br>
+        After Pipe - {{ currency | currency:'INR'}}
+    </div>
+    <div class="col-3">
+        <p>percent</p>
+        Original Value - {{percent}}
+        <br>
+        After Pipe - {{ percent | percent:'1.1' }}
+    </div>
+    <div class="col-3">
+        <p>decimal</p>
+        Original Value - {{decimal}}
+        <br>
+        After Pipe - {{ decimal | number:'1.1-1' }}
+    </div>
+    <div class="col-3">
+        <p>slice</p>
+        Original Value - {{slices}}
+        <br>
+        After Pipe - {{ slices | slice: 5:11 }}
+    </div>
+    <div class="col-3">
+        <p>json</p>
+        Original Value -  {{std}}
+        <br>
+        After Pipe - {{ std | json }}
+    </div>
+    <div class="col-3">
+        <p>async</p>
+        Original Value - {{asynctime}}
+        <br>
+        After Pipe - {{ asynctime | async | date:'hh:mm:ss'}}
+    </div>
+    <div class="col-3">
+        <p>custom</p>
+        Original Value - {{std.state}}
+        <br>
+        After Pipe - {{std.state | custom}}
+    </div>
+</div>

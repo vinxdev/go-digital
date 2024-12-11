@@ -1,0 +1,30 @@
+<p>Services works!</p>
+<div>
+  <h1>User Management</h1>
+
+  <!-- Display Users -->
+  <ul>
+    <li *ngFor="let user of users">
+      {{ user.name }}
+      <button (click)="getUserById(user.id)">View</button>
+      <!-- <button (click)="deleteUser(user.id)">Delete</button> -->
+    </li>
+  </ul>
+
+  <!-- <div>
+    <h2>Add User</h2>
+    <form #userForm="ngForm" (ngSubmit)="createUser(userForm.value)">
+      <input name="name" placeholder="Name" ngModel required />
+      <input name="email" placeholder="Email" ngModel required />
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</div> -->
+
+
+<div *ngIf="selectedUser">
+  <h2>Selected User</h2>
+  <p>ID: {{ selectedUser.id }}</p>
+  <p>Name: {{ selectedUser.name }}</p>
+  <p>Email: {{ selectedUser.email }}</p>
+</div>

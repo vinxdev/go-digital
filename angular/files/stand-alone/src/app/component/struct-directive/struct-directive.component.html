@@ -1,0 +1,111 @@
+<div class="mt-4 p-2 bg-secondary text-white rounded">
+    <h1>Structural Directive</h1>
+    <h5 class="text-black">ngif ngfor</h5>
+</div>
+<h3>using ngif</h3>
+<div class="row pt-3">
+    <div *ngIf="isdiv1visible" class="col-3">
+        <div class="bg-danger p-3 text-center">
+            <h4>Div-1</h4>
+        </div>
+    </div>
+    <div *ngIf="iddiv2visible" class="col-3">
+        <div class="bg-danger p-3 text-center">
+            <h4>Div-2</h4>
+        </div>
+    </div>
+    <div class="col-3">
+        <div *ngIf="num1==num2" class="bg-danger p-3 text-center">
+            <h4>Div-3</h4>
+        </div>
+    </div>
+    <div *ngIf="isactive" class="col-3">
+        <div class="bg-danger p-3 text-center">
+            <h4>Div-4</h4>
+        </div>
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-3">
+        <button class="btn btn-primary" (click)="hidediv1()">del div1</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-success" (click)="showdiv1()">Create div1</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary" (click)="toggle()">Toggle Div2</button>
+    </div>
+    <div class="col-2">
+        <input type="number" placeholder="num-1" [(ngModel)]="num1">
+        <input type="number" placeholder="num-2" [(ngModel)]="num2">
+    </div>
+    <div class="col-2">
+        <input [(ngModel)]="isactive" type="checkbox">
+        <select>
+            <option value="">Select state</option>
+            <option value="India">India</option>
+            <option value="Usa">usa</option>
+            <option value="Maharashtra">maharashtra</option>
+        </select> 
+    </div>
+</div>
+
+<h2>Using ngfor</h2>
+<div *ngFor="let item of listofstr">
+    <p>Current elements of arrays is: {{item}}</p>
+</div>
+
+
+
+<div class="mt-4 p-2 bg-secondary text-white rounded">
+    <h1>Attribute Directive</h1>
+    <h5 class="text-black">ngclass,ngstyle</h5>
+</div>
+<div class="row pt-3">
+    <div class="col-3">
+        <div class="p-3 text-center" [ngClass]="div1bgcolor">
+            <h4>Div-1</h4>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="bg-danger p-3 text-center">
+            <h4>Div-2</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-3">
+    <div class="col-3 text-center">
+        <button class="btn btn-danger" (click)="redclick()">Add Red</button>
+        <button class="btn btn-primary" (click)="blueclick()">Add Blue</button>
+    </div>
+</div>
+
+<div class="row pt-4">
+    <div class="col-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th>Gender</th>
+                    <th>Total Mark</th>
+                </tr>
+            </thead>
+        </table>
+        <tbody>
+            <tr *ngFor="let stud of studentlist">
+                <td>{{stud.name}}</td>
+                <td>{{stud.city}}</td>
+                <td [ngStyle]="{'background-color':stud.isactive?'yellow':'red'}">
+                   <span>
+                    {{stud.isactive?"active":"de-active"}}
+                   </span> 
+                </td>
+                <td>{{stud.gender}}</td>
+                <td>{{stud.totalmarks}}</td>
+            </tr>
+        </tbody>
+    </div>
+</div>

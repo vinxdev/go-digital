@@ -1,0 +1,248 @@
+<h5>form works!</h5>
+<div class="mt-2 p-2 bg-secondary text-white rounded">
+    <h1>Template Form</h1>
+    <h5>Using ngModel</h5>
+</div>
+
+<button class="btn btn-primary" (click)="tem()">
+  {{ tempformvisible ? 'Hide Form' : 'Show Form' }}
+  Template 
+</button>
+
+<button class="btn btn-success" (click)="mod()">
+    {{ modformvisible ? 'Hide Form' : 'Show Form' }}
+  Model
+</button>
+
+<ng-template #templateform>
+        <div class="row">
+            <div class="col-8">
+                <h5 class="modal-title">Model Form</h5>
+                <form class="row g-3" #form="ngForm">
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            First name
+                        </label>
+                        <input type="text" class="form-control"
+                        name="firstname" #fname = "ngModel" [(ngModel)]="studentObj.firstname" required minlength="3">
+                        <div class="text-danger">
+                            @if (fname.touched && fname.errors?.['required']){
+                                <span>This is required</span>
+                            }@else if (fname.errors?.['minlength']) {
+                                <span>Min 3 char required</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            Last name
+                        </label>
+                        <input type="text"  name="lastname" #lname="ngModel" required class="form-control" [(ngModel)]="studentObj.lastname">
+                        <div class="text-danger">
+                            @if (lname.touched && lname.errors?.['required']){
+                                <span>This is required</span>
+                            }@else if (lname.errors?.['minlength']) {
+                                <span>Min 3 char required</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            Username
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text"><span>&#64;</span></span>
+                            <input type="text" class="form-control" #uname="ngModel"
+                            name="username" [(ngModel)]="studentObj.username" required>
+                            <div class="text-danger">
+                                @if (uname.touched && uname.errors?.['required']){
+                                    <span>This is required</span>
+                                }@else if (uname.errors?.['minlength']) {
+                                    <span>Min 3 char required</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            City
+                        </label>
+                        <input type="text" #cname="ngModel" class="form-control" 
+                        name="city" [(ngModel)]="studentObj.city" required>
+                        <div class="text-danger">
+                            @if (cname.touched && cname.errors?.['required']){
+                                <span>This is required</span>}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            State
+                        </label>
+                        <select class="form-select"
+                        name="state"
+                        [(ngModel)]="studentObj.state" required>
+                            <option selected disabled ="" value="">
+                                Choose..</option>
+                            <option value="Maharashtra">
+                                Maharashtra</option>
+                            <option value="Goa">Goa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Zip
+                        </label>
+                        <input type="number" #zname="ngModel" class="form-control" 
+                        name="zip" [(ngModel)]="studentObj.zipcode" required pattern="[0-9]{6}">
+                        <div class="text-danger">
+                            @if (zname.touched && zname.errors?.['required']){
+                                <span>This is required</span>
+                            }
+                            @else if (zname.errors?.['pattern']) {
+                                <span>Pincode must be 6 digits</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input 
+                              class="form-check-input" 
+                              type="checkbox" 
+                              id="invalidcheck" 
+                              name="isacceptterms" 
+                              [(ngModel)]="studentObj.isacceptterms" 
+                              #agree="ngModel" 
+                              required>
+                            
+                            <label class="form-check-label" for="invalidcheck">
+                              Agree to terms
+                            </label>
+                          
+                            <div *ngIf="studentObj.isacceptterms != true && agree.touched" class="text-danger">
+                              <span>This is required</span>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-secondary" type="button" (click)="resetform()">
+                            Reset Form
+                        </button>
+                        
+                        <button class="btn btn-primary mx-2"
+                        type="button" (click)="onsubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </form>  
+            </div>
+            {{formvalue | json}}
+        </div>
+</ng-template>    
+
+<ng-template #modelform>
+    <div class="row">
+      <div>
+        <div>
+          <div class="modal-header">
+            <h5 class="modal-title">Model Form</h5>
+          </div>
+          <div class="modal-body">
+            <form name="studentForm" [formGroup]="studentForm" (ngSubmit)="onsubmit()">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">First name</label>
+                  <input type="text" class="form-control" formControlName="firstname">
+                  <div class="text-danger" *ngIf="studentForm.get('firstname')?.touched && studentForm.get('firstname')?.hasError('required')">
+                    <span>This is required</span>
+                  </div>
+                  <div class="text-danger" *ngIf="studentForm.get('firstname')?.touched && studentForm.get('firstname')?.hasError('minlength')">
+                    <span>First name must be at least 3 characters</span>
+                  </div>
+                </div>
+  
+                <div class="col-md-4">
+                  <label class="form-label">Last name</label>
+                  <input type="text" formControlName="lastname" class="form-control">
+                  <div class="text-danger" *ngIf="studentForm.get('lastname')?.touched && studentForm.get('lastname')?.hasError('required')">
+                    <span>This is required</span>
+                  </div>
+                </div>
+  
+                <div class="col-md-4">
+                  <label class="form-label">Username</label>
+                  <input type="text" formControlName="username" class="form-control">
+                  <div class="text-danger" *ngIf="studentForm.get('username')?.touched && studentForm.get('username')?.hasError('required')">
+                    <span>This is required</span>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <label class="form-label">City</label>
+                  <input type="text" formControlName="city" class="form-control">
+                  <div class="text-danger" *ngIf="studentForm.get('city')?.touched && studentForm.get('city')?.hasError('required')">
+                    <span>This is required</span>
+                  </div>
+                </div>
+  
+                <div class="col-md-3">
+                  <label class="form-label">State</label>
+                  <select formControlName="state" class="form-select">
+                    <option value="" disabled>Choose..</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Goa">Goa</option>
+                  </select>
+                </div>
+  
+                <div class="col-md-3">
+                  <label class="form-label">Zip</label>
+                  <input type="number" formControlName="zipcode" class="form-control">
+                  <div class="text-danger" *ngIf="studentForm.get('zipcode')?.touched && studentForm.get('zipcode')?.hasError('required')">
+                    <span>This is required</span>
+                  </div>
+                  <div class="text-danger" *ngIf="studentForm.get('zipcode')?.hasError('pattern')">
+                    <span>Pincode must be 6 digits</span>
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="isacceptterms">
+                    <label class="form-check-label">Agree to terms</label>
+                    <div *ngIf="studentForm.get('isacceptterms')?.touched && studentForm.get('isacceptterms')?.hasError('requiredTrue')" class="text-danger">
+                      <span>This is required</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <button class="btn btn-secondary" type="button" (click)="resetform()">Reset Form</button>
+                  <button class="btn btn-primary mx-2" type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</ng-template>
+
+
+<div *ngIf="tempformvisible">
+    <div *ngTemplateOutlet="templateform">
+    </div>
+</div>
+
+<div *ngIf="modformvisible">
+    <div *ngTemplateOutlet="modelform">
+    </div>
+</div>
+
+<!-- <ng-template #mytemplate>
+    <h1>hidden</h1>
+</ng-template>
+
+<div *ngTemplateOutlet="mytemplate"></div> -->
+
+
+
+

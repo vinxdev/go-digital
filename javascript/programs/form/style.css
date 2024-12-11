@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form {
+    max-width: 400px;
+    margin: auto;
+    background-color: #f5f8f5;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);;
+}
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+input, textarea {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #218838;
+}
+
+#del {
+    padding: 10px 15px;
+    background-color: #de3004;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#del:hover {
+    background-color: #de3004;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}

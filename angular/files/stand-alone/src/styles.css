@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+p{
+    background-color: rgb(203, 203, 200);
+}
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(226, 232, 232);
+}

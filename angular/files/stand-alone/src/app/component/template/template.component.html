@@ -1,0 +1,28 @@
+<br><br>
+<h2>NG Template</h2>
+<div>
+    <h5 *ngIf="isUserLoggedIn; else notloggedin">
+        {{loggedInUserName}}
+    </h5>
+</div>
+
+<ng-template #notloggedin>
+  <div class="bg-danger p-3">
+    <span>User Not LoggedIn</span>
+  </div>
+</ng-template>
+
+
+<div>
+    <ng-template #dynamictem>
+        <p>Hello cosmos!!</p>
+    </ng-template>
+</div>
+<div>
+    <div #dynamicContainer>
+        
+    </div>
+</div>
+
+<button class="btn btn-primary" (click)="loadtemplate()">Load content</button>
+

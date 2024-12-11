@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- adding js as a external file -->
+    <script src="1_intro.js"></script>
+    <!-- adding js using script tag outside the body -->
+     <script>
+      function myFunction() {
+        document.getElementById("text").innerHTML = "This Text got changed again";
+      }
+      function myalert(){
+        window.alert("security breached")
+      }
+      </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="doc">
+        <h1 id="title">
+            Javascript
+        </h1>
+        <p id="text">This is the first text</p>
+        <!-- accessing elements of dom by id and changing the content and using onclick event-->
+        <button type="button" onclick="document.getElementById('text').innerHTML = 'this is the second text!'">Done</button>
+        <button onclick="myFunction()">Click</button>
+        <button onclick="myalert()">Dont click</button>
+        <!-- adding js using script tag inside the body -->
+         <p></p>
+        <script>
+        document.getElementById("title").innerHTML="JAVASCRIPT"
+        // write text using js
+        document.write("This text was written using js")
+        </script>
+        
+    </div>
+</body>
+</html>
