@@ -1,9 +1,0 @@
-button{
-    padding:5px 10px ;
-    background-color: bisque;
-    border-width: 1px;
-}
-
-button:hover{
-    background-color: rgb(244, 198, 124);
-}

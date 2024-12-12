@@ -1,23 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { UsersModule } from './users/users.module';
-import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home/home.module';
-import { AddUserComponent } from './users/users/add-user/add-user.component';
-
-
+import { NavComponent } from './nav/nav.component';
+import { IntercepterComponent } from './intercepter/intercepter.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
+import { InterceptorService } from './intercepter/interceptor.service';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent,
+    IntercepterComponent
   ],
   imports: [
     BrowserModule,
-    UsersModule,
     HomeModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent,HomeComponent]
+  providers: [
+    {provide: HTTP_INTERCEPTORS , useClass: InterceptorService, multi: true }
+  ],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

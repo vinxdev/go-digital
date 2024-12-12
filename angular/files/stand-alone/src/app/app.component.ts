@@ -5,7 +5,7 @@ import { NavComponent } from "./component/nav/nav.component";
   selector: 'app-root',
   imports: [NavComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 
 })
 export class AppComponent {

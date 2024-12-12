@@ -6,8 +6,9 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
-  title = 'This is using ng module ';
+  title = 'This is using ng module cs';
 }
 
 
