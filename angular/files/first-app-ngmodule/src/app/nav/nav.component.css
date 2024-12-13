@@ -16,7 +16,7 @@ nav{
   align-items: center;
   justify-content: space-between;
   height: 70px;
-  padding: 0 100px;
+  padding: 0 20px;
   border-radius: 12px;
 }
 nav .logo{
@@ -28,15 +28,15 @@ nav .logo{
 nav .nav-items{
   display: flex;
   flex: 1;
-  padding: 0 0 0 40px;
+  padding: 0 0 0 20px;
 }
 nav .nav-items li{
   list-style: none;
-  padding: 0 15px;
+  padding: 0 10px;
 }
 nav .nav-items li a{
   color: #fff;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: 500;
   text-decoration: none;
 }

@@ -1,0 +1,12 @@
+<div class="btn-group" *ngFor="let pr of lang" style="position: static; top: 0;">
+   <a class="btn btn-primary" [routerLink]="['/anchor']" [fragment]="pr">
+    {{pr}}
+</a> 
+</div>
+<div class="container" *ngFor="let pr of lang" [attr.id]="pr">
+    <h1 href=''>{{pr}}</h1>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro autem tempore iste eos quos, cumque minima voluptatem dicta expedita quia! Odit mollitia architecto veritatis quidem maxime expedita perferendis, repudiandae ex dolor reiciendis. Quibusdam possimus tenetur vel eos officia quas doloremque. Sequi deserunt, aspernatur minus dolore quas, totam eveniet voluptas rerum, repellendus dolorem saepe earum commodi. Distinctio deleniti, odio similique corrupti facilis voluptates. Aspernatur excepturi veniam, consequatur est aut exercitationem nisi odio odit quisquam culpa inventore magni tenetur harum expedita laboriosam non nobis quos maiores magnam sapiente sit facilis architecto distinctio recusandae. Aperiam animi quasi est minus facilis deserunt, magni eaque.
+    </p>
+</div>
+

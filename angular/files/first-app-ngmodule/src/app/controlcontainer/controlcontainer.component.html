@@ -1,0 +1,16 @@
+<p>Contact</p>
+<form [formGroup]="addressform">
+  <div class="formgroup">
+    <input type="text" placeholder="name" formControlName="name" />
+  </div>
+  <div class="mt-2">
+    <input type="number" placeholder="phone" formControlName="phone" />
+  </div>
+</form>
+<app-child [formGroup]="getaddressformgroup()"></app-child>
+
+<div>
+  <button class="btn btn-primary mt-4" (click)="submit()">Submit</button>
+</div>
+
+

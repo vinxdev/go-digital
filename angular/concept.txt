@@ -1,0 +1,114 @@
+1.angular ng module:
+it holds components, pipes, imports you modules can also be shared .
+
+
+2.anguar standalone:
+angular.json
+"schematics": {
+  "@schematics/angular:component": {
+    "standalone": true
+  }
+}
+component.ts
+standalone:true
+
+
+
+3.types of module:
+a.feature module:payments, users, invoice
+b.shared module:header,auth,footer
+c.lazy loading: loaded on demand
+
+
+
+
+4.data binding
+a.one way
+b.two way
+interpolation = {{}}
+property binding = []
+c. using signal
+
+
+
+
+5.forms
+ng-template is a angular element which wraps around html and can be used like a template and can be rendered in dom.
+
+viewchild is like selector of a tag
+
+ng-container is used to render template without adding any element in the dom
+
+
+
+
+6. Directives
+
+changes the behaviour of dom
+
+1. component 
+
+- holds details about the html page , styles, imports and selectors
+
+2. structural Directives
+
+-  *ngIf - to add to remove element from dom
+-  *ngFor - to create dynamic element
+
+3. Attribute Directives
+
+- ngclass - can add class attribute
+- ngstyles - add css attribute
+
+
+
+7.routing
+inhtml using router outlet and router link
+in ts using router service ,
+
+8.service
+used to add reusable components
+
+9. element injector
+when parent component has its own service (element injector) and it has a child component when child component needs any dependency it looks up at itself first then searches in parent component
+
+10. enable tracing
+logs your routes in console
+
+11.EventEmitter
+used to emit events from child to parent component using 
+@input - parent component update data in the child component
+@output - child component sends data to the parent component
+
+12.ModuleInjector
+used to inject modules in the root level of applications
+
+13. userhash
+used to hash the user data and store it in local storage
+
+14. core service/component
+used to add common functionality to all components
+
+15.template variable
+use data from one part of a template in another part of the template 
+
+16.angular workspace config
+angular.json file at the root level of an Angular workspace provides workspace-wide and project-specific configuration defaults
+
+17.Navigating pages with Advanced Routing
+using static or dynamic route while using dynamic like :id then used Activatedroute
+
+18.Component Decorator
+it gives the metadata about the component like selectors html and css page any service providers 
+
+19. cli commands
+https://angular.dev/cli
+
+20.lazy loading
+used to load modules on demand when they are needed
+
+21. reactive forms
+used to create forms in angular using reactive approach rxjs
+
+22. dependency provider
+used to provide dependencies to components

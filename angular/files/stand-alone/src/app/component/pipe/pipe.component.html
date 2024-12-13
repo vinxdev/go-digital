@@ -62,7 +62,7 @@
         <p>async</p>
         Original Value - {{asynctime}}
         <br>
-        After Pipe - {{ asynctime | async | date:'hh:mm:ss'}}
+        After Pipe - {{ asynctime | async | date: 'dd MMMM h:mm:ss'| titlecase| custom}}
     </div>
     <div class="col-3">
         <p>custom</p>

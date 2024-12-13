@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root', // Makes the service globally available
+  providedIn: 'root',
 })
+
 export class TaskService {
   private baseUrl = 'https://jsonplaceholder.typicode.com/users';
 
@@ -17,7 +18,7 @@ export class TaskService {
 
   getUserById(id: number): Observable<any> {
     const url = `${this.baseUrl}/${id}`;
-    console.log('Making GET request to:', url);
+    console.log('Making GET request by id to:', url);
     return this.http.get<any>(url);
   }
 }

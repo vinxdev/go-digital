@@ -10,11 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.startsWith('https://catapi')) {
-      console.log('Auth Interceptor triggered for:', req.url);
-    } else {
-      console.log('Skipping Interceptor for:', req.url);
-    }
+    console.log("interceptor called");
     return next.handle(req);
   }
 }
