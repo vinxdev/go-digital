@@ -1,0 +1,37 @@
+<div *ngIf="productDetails; else noproduct" class="flex items-center justify-center m-10">
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ productDetails.title }}</mat-card-title>
+      <mat-card-subtitle>{{ productDetails.category }}</mat-card-subtitle>
+    </mat-card-header>
+    
+    <!-- Check if images is a string (base64) or an array -->
+    <img mat-card-image *ngIf="productDetails.images && (typeof productDetails.images === 'string' || productDetails.images.length > 0); else noImage"
+         [src]="typeof productDetails.images === 'string' ? productDetails.images : productDetails.images[0]" 
+         alt="{{ productDetails.title }}" width="350" height="200" style="object-fit: contain;">
+    
+    <!-- Fallback template when no image exists -->
+    <ng-template #noImage>
+      <p>No image available</p>
+    </ng-template>
+
+    <mat-card-content>
+      <p class="m-5">
+        Price: ${{ productDetails.price }}
+      </p>
+      <p class="m-5">
+        Rating: {{ productDetails.rating }} / 5
+      </p>
+      <p class="m-5">
+        Brand: {{ productDetails.brand }}
+      </p>
+      <p class="m-5">
+        Description: {{ productDetails.description }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #noproduct>
+  <p>Product details not available</p>
+</ng-template>

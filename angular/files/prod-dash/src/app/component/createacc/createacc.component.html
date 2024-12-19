@@ -1,0 +1,39 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="w-full max-w-sm p-6 m-10 border border-gray-300 rounded-lg bg-white shadow-lg">
+    <h1 class="flex items-center justify-center text-3xl pb-3">Create Account</h1>
+  
+    <mat-form-field >
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="name" name="name" />
+      <mat-error *ngIf="signUpForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-label>Contact number</mat-label>
+        <input matInput formControlName="num" name="num" />
+        <mat-error *ngIf="signUpForm.get('num')?.hasError('required')">
+          Contact number is required
+        </mat-error>
+        <mat-error *ngIf="signUpForm.get('num')?.hasError('minlength') || signUpForm.get('num')?.hasError('maxlength')">
+            Contact number must be 10 digits
+        </mat-error>
+      </mat-form-field>
+  
+    <mat-form-field  class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="email" type="email" />
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('email')">
+        Invalid email
+      </mat-error>
+    </mat-form-field>
+  
+    <button mat-stroked-button color="primary" type="submit" [disabled]="!signUpForm.valid">
+      Register
+    </button>
+  </form>
+</div>

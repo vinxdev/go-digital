@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="flex justify-between items-center w-screen">
+    <p class="text-2xl">Prod Dash</p>
+    <div class="flex gap-3">
+      <button mat-flat-button color="accent" routerLink="login" >Login</button>
+      <button mat-flat-button color="success" routerLink="signup">Sign Up</button>
+    </div>
+    <div *ngIf="loggedin">
+       
+    </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

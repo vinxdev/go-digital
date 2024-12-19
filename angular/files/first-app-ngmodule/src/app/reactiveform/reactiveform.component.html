@@ -14,6 +14,7 @@
                                     <th>Name</th>
                                     <th>Contact</th>
                                     <th>Email id</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -23,12 +24,9 @@
                                         <td>{{item.name}}</td>
                                         <td>{{item.contactno}}</td>
                                         <td>{{item.emailid}}</td>
-                                        <td>{{item.address}}</td>
-                                        <td>{{item.pincode}}</td>
-                                        <td>{{item.city}}</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary" (click)="edit(item)">Edit</button>
-                                            <button class="btn btn-danger" (click)="delete(item)">Delete</button>
+                                        <td class="text-center m-2">
+                                            <button class="btn btn-primary m-2" (click)="edit(item)">Edit</button>
+                                            <button class="btn btn-danger m-2" (click)="delete(item.empId)">Delete</button>
                                         </td>
                                     </tr>
                                 }
@@ -50,39 +48,96 @@
                         <div class="col-6">
                             <label for="">Name</label>
                             <input type="text" formControlName="name"  class="form-control">
+                            <div class="text-danger">
+                                <span *ngIf="employeeform.controls['name'].touched && employeeform.controls['name'].hasError('required')">
+                                    Name is required
+                                </span>
+                            </div>
                         </div>
                         <div class="col-6">
                             <label for="">Email id</label>
                             <input type="text" formControlName="emailid"  class="form-control">
+                            <div class="text-danger">
+                                <span *ngIf="employeeform.controls['emailid'].touched && employeeform.controls['emailid'].errors?.['required']">
+                                    emailid is required
+                                </span>
+                                <span *ngIf="employeeform.controls['emailid'].errors?.['email']">
+                                write email in correct format
+                                </span>
+                            </div>
                         </div>
                         <div class="col-6">
                             <label for="">Contact No</label>
                             <input type="number" formControlName="contactno"  class="form-control">
+                            <div class="text-danger" *ngIf="employeeform.controls['contactno'].invalid || ( employeeform.controls['contactno'].touched || employeeform.controls['contactno'].dirty )">
+                                <span *ngIf="employeeform.controls['contactno'].errors?.['required']">
+                                  contact no is required</span>
+                                <span *ngIf="employeeform.controls['contactno'].errors?.['minLength']">
+                                  contact no must be 6 digits</span>
+                            </div>
                         </div>
                         <div class="col-6">
                             <label for="">City</label>
-                            <input type="text" formControlName="city"  class="form-control">
+                            <input type="text" formControlName="city" class="form-control">
+                            <div class="text-danger">
+                                <span *ngIf="employeeform.controls['city'].touched && employeeform.controls['city'].errors?.['required']">
+                                    city is required
+                                </span>
+                            </div>
                         </div>
                         <div class="col-6">
                             <label for="">State</label>
-                            <input type="text" formControlName="state"  class="form-control">
+                            <input type="text" formControlName="state"  class="form-control"><div class="text-danger">
+                                <div class="text-danger">
+                                    <span *ngIf="employeeform.controls['state'].touched && employeeform.controls['state'].errors?.['required']">
+                                        state is required
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-6">
                             <label for="">Pincode</label>
-                            <input type="number" formControlName="pincode"  class="form-control">
+                            <input type="number" formControlName="pincode" class="form-control">
+                            <div class="text-danger">
+                                <div class="col-6">
+                                    <div class="text-danger" *ngIf="employeeform.controls['pincode'].invalid && ( employeeform.controls['pincode'].touched || employeeform.controls['pincode'].dirty )">
+                                      <span *ngIf="employeeform.controls['pincode'].errors?.['required']">
+                                        Pincode is required</span>
+                                      <span *ngIf="employeeform.controls['pincode'].errors?.['minlength']">
+                                        Pincode must be 6 digits</span>
+                                    </div>
+                                  </div>
+                            </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12">
                             <label for="">Address</label>
-                            <textarea name="" id="" formControlName="address"  class="form-control"></textarea>
+                            <textarea formControlName="address"  class="form-control"></textarea>
+                            <div class="text-danger">
+                                <div class="text-danger">
+                                    <span *ngIf="employeeform.controls['address'].touched && employeeform.controls['address'].errors?.['required']">
+                                        address is required
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row pt-2">
                         <div class="col-6 text-center">
-                            <button class="btn btn-secondary">Reset</button>
+                            <button class="btn btn-secondary" (click)="reset()">Reset</button>
                         </div>
                         <div class="col-6 text-center">
-                            <button class="btn btn-success" (click)="save()">Save Employee</button>
-                        </div>
+                            <button 
+                               [disabled]="employeeform.invalid"
+                              *ngIf="employeeform.controls['empId'].value; else saveButton" 
+                              class="btn btn-warning" 
+                              (click)="update()">
+                              Update Employee
+                            </button>
+                          
+                            <ng-template #saveButton>
+                              <button  [disabled]="employeeform.invalid" class="btn btn-success" (click)="save()">Save Employee</button>
+                            </ng-template>
+                          </div>
                     </div>
                 </form>
             </div>

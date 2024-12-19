@@ -1,0 +1,71 @@
+
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <form [formGroup]="updateProduct" (ngSubmit)="onSubmit()" class="w-full max-w-sm p-6 m-10 border border-gray-300 rounded-lg bg-white shadow-lg">
+        <h1 class="flex items-center justify-center text-3xl pb-8">Update Product</h1>
+        <div class="flex flex-col mb-4">
+        <mat-form-field class="form-field">
+          <mat-label>Product Name</mat-label>
+          <input matInput formControlName="title" name="title" />
+          <mat-error *ngIf="updateProduct.get('title')?.hasError('required')">
+            Product Name is required
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Select category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let item of categories" [value]="item">
+              {{ item }} 
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+        <mat-form-field  class="form-field">
+          <mat-label>Price</mat-label>
+          <input matInput formControlName="price" name="price" />
+          <mat-error *ngIf="updateProduct.get('price')?.hasError('required')">
+            Price is required
+          </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field  class="form-field">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" name="description"/>
+            <mat-error *ngIf="updateProduct.get('description')?.hasError('required')">
+                Description is required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- <mat-form-field  class="form-field">
+            <mat-label>Image</mat-label>
+            <input matInput formControlName="image" name="image" type="file"/>
+            <mat-error *ngIf="updateProduct.get('image')?.hasError('required')">
+              image is required
+            </mat-error>
+          </mat-form-field> -->
+
+          <mat-form-field  class="form-field">
+            <mat-label>brand</mat-label>
+            <input matInput formControlName="brand" name="brand"/>
+            <mat-error *ngIf="updateProduct.get('brand')?.hasError('required')">
+              Brand is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  class="form-field">
+            <mat-label>Rating</mat-label>
+            <input matInput formControlName="rating" name="rating" />
+            <mat-error *ngIf="updateProduct.get('rating')?.hasError('required')">
+              Rating is required
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+        <div class="flex flex-col m-4">
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!updateProduct.valid">
+                Update
+              </button>
+        </div>
+  
+      </form>
+    </div>

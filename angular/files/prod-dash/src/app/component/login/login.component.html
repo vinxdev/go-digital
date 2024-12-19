@@ -1,0 +1,28 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="w-full max-w-sm  m-8 p-6 border border-gray-300 rounded-lg bg-white shadow-lg">
+    <h1 class="flex items-center justify-center text-3xl pb-3">Login</h1>
+
+    <div class="mb-4">
+      <mat-form-field  class="w-full">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="name" name="name"  />
+        <mat-error *ngIf="signInForm.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-4">
+      <mat-form-field  class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" name="email" type="email" class="w-full" />
+        <mat-error *ngIf="signInForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="signInForm.get('email')?.hasError('email')">Invalid email</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex justify-center">
+      <button mat-stroked-button color="primary" type="submit" [disabled]="!signInForm.valid" class="w-full py-2 px-4 text-white bg-blue-500 hover:bg-blue-700 rounded-md">
+        Register
+      </button>
+    </div>
+  </form>
+</div>

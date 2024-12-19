@@ -1,0 +1,77 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <form [formGroup]="addProduct" (ngSubmit)="onSubmit()" class="w-full max-w-sm p-6 m-10 border border-gray-300 rounded-lg bg-white shadow-lg">
+    <h1 class="flex items-center justify-center text-3xl pb-3">Create Product</h1>
+    
+    <div class="flex flex-col mb-4">
+      <mat-form-field class="form-field">
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="title" name="title" />
+        <mat-error *ngIf="addProduct.get('title')?.hasError('required')">
+          Product Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Select category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let item of categories" [value]="item">
+            {{ item }} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field class="form-field">
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" name="price" />
+        <mat-error *ngIf="addProduct.get('price')?.hasError('required')">
+          Price is required
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field class="form-field">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" name="description"/>
+        <mat-error *ngIf="addProduct.get('description')?.hasError('required')">
+          Description is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Brand</mat-label>
+        <input matInput formControlName="brand" name="brand"/>
+        <mat-error *ngIf="addProduct.get('brand')?.hasError('required')">
+          Brand is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Rating</mat-label>
+        <input matInput formControlName="rating" name="rating" />
+        <mat-error *ngIf="addProduct.get('rating')?.hasError('required')">
+          Rating is required
+        </mat-error>
+      </mat-form-field>
+
+
+      <div class="file-input mt-4">
+        <label for="file-upload" class="block text-sm font-medium text-gray-700">
+          Upload Product Image
+        </label>
+        <input 
+          type="file" 
+          id="file-upload" 
+          formControlName="images"
+          (change)="onFileSelected($event)"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:border-indigo-500" 
+        />
+        <p class="mt-1 text-sm text-gray-500">Supported formats: JPG, PNG.</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col m-4">
+      <button mat-stroked-button color="primary" type="submit">
+        Create
+      </button>
+    </div>
+  </form>
+</div>
