@@ -16,18 +16,28 @@ export class LoginComponent {
 
   signInForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')])
   });
 
   onSubmit() {
     const storedData = JSON.parse(localStorage.getItem('signupData') || '[]');
-    const existingEmail = storedData.find((user:any) => user.email === this.signInForm.value.email);
-    const existingName = storedData.find((user:any) => user.name === this.signInForm.value.name);
-    if (existingEmail && existingName) {
+    const existingUser = storedData.find((user: any) => 
+      user.email === this.signInForm.value.email && 
+      user.name === this.signInForm.value.name
+    );
+  
+    if (existingUser) {
+      if(!existingUser.cart)
+      {
+        existingUser.cart = [];
+      }
+      localStorage.setItem('isloggedin', 'true');
+      localStorage.setItem('loggedInUser', JSON.stringify(existingUser));
       this.router.navigate(['/home']);
       alert('Login Successful');
-      } else {
-        alert('Email or username does not exists ');
-        }
+      
+    } else {
+      alert('Email or username does not exist.');
+    }
   }
 }

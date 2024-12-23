@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { HomeComponent } from '../home/home.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
@@ -14,7 +14,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 export class ViewComponent implements OnInit {
   productId: number | null = null;
   productDetails: any;
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
   this.route.paramMap.subscribe((params) => {
@@ -27,6 +27,16 @@ export class ViewComponent implements OnInit {
       console.error('Invalid or undefined product ID.');
     }
   });
+  this.startSlideshow();
+  }
+
+  currentIndex: number = 0;
+  intervalId: any; 
+
+  startSlideshow() {
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.productDetails.images.length;
+    }, 1000); 
   }
 
   fetchProductDetails(id: number) {
@@ -46,5 +56,11 @@ export class ViewComponent implements OnInit {
     
   }
 
+  cart(id:number){
+    console.log(id);
+    this.router.navigate([`/cart/${id}`])
+    console.log('clicked');
+
+  }
 
 }

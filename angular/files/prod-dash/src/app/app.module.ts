@@ -19,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { CartComponent } from './component/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
     ViewComponent,
     AddComponent,
     UpdateComponent,
+    CartComponent,
   ],
   imports: [
     MatCardModule,
@@ -44,6 +47,7 @@ import {MatSelectModule} from '@angular/material/select';
     ReactiveFormsModule,
     FormsModule,
     MatSelectModule,
+    MatIconModule,
   ],
   providers: [
     provideAnimationsAsync(),

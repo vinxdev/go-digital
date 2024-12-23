@@ -14,14 +14,14 @@ export class AddComponent implements OnInit {
   file:any;
 
   addProduct = new FormGroup({
-    id: new FormControl(null),
     title: new FormControl('', Validators.required),
-    price: new FormControl('', Validators.required),
+    price: new FormControl('', {validators: [Validators.required, Validators.min(0.5)]}),
     category: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    rating: new FormControl('', Validators.required),
-    brand: new FormControl('', Validators.required),
+    description: new FormControl('',{validators: [Validators.required, Validators.maxLength(100)]}),
+    rating: new FormControl('',{validators: [Validators.required, Validators.min(1),Validators.max(10)]}),
+    brand: new FormControl('', {validators: [Validators.required, Validators.maxLength(20)]}),
     images: new FormControl('', Validators.required),
+    stock: new FormControl('', {validators: [Validators.required, Validators.min(1)]}),
   });
 
   constructor(private apiService: ApiService) {}
@@ -55,9 +55,12 @@ onFileSelected(event:any){
       console.log('not yet');
     }
      reader.readAsDataURL(this.file)
-}
+ }
 
-  onSubmit() {
+ 
+onSubmit() {
+  if(this.addProduct.valid)
+  {
     const olddata = localStorage.getItem('products');
     let products = olddata ? JSON.parse(olddata) : [];
     const nextId = products.length > 0 ? Math.max(...products.map((product: any) => product.id)) + 1 : 1;
@@ -79,6 +82,8 @@ onFileSelected(event:any){
     alert('Product added');
     console.log('Product added to local storage:', newProduct);
   }
+    
+}
 
   fetchCategories() {
     this.apiService.getAllProducts().subscribe(

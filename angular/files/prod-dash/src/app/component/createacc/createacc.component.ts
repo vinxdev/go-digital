@@ -20,7 +20,7 @@ export class CreateaccComponent {
 
   signUpForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
     num: new FormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(10)])
   });
 
@@ -29,17 +29,21 @@ export class CreateaccComponent {
       if (this.emailvalid() == true || this.contactvalid() == true) {
         return
       }
-      const formData = this.signUpForm.value;
       let storedData = JSON.parse(localStorage.getItem('signupData') || '[]');
+      const nextId = storedData.length > 0 ? Math.max(...storedData.map((user: any) => user.id)) + 1 : 1;
+      const formData = this.signUpForm.value;
+      const user = { id: nextId, ...formData, cart:[] };
       if (!Array.isArray(storedData)) {
         storedData = [];
       }
-      storedData.push(formData);
+      storedData.push(user);
       localStorage.setItem('signupData', JSON.stringify(storedData));
+      localStorage.setItem('loggedInUser',JSON.stringify(user))
       console.log('Form submitted successfully and data saved to localStorage:', storedData);
       alert('Registration successful!');
       this.signUpForm.reset();
       this.router.navigate(['/home'])
+      localStorage.setItem('isloggedin','true')
     } else {
       console.log('Form is invalid!');
     }

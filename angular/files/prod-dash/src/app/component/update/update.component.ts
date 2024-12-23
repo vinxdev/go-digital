@@ -18,13 +18,15 @@ export class UpdateComponent {
 
 constructor(private apiService : ApiService,private route: ActivatedRoute){ }
 updateProduct = new FormGroup({
+  id: new FormControl('', Validators.required),
   title: new FormControl('', Validators.required),
-  price: new FormControl('', Validators.required),
+  price: new FormControl('', {validators: [Validators.required, Validators.min(0.5)]}),
   category: new FormControl('', Validators.required),
-  description: new FormControl('', Validators.required),
-  // image: new FormControl('', Validators.required),
-  rating: new FormControl('', Validators.required),
-  brand : new FormControl('', Validators.required),
+  description: new FormControl('',{validators: [Validators.required, Validators.maxLength(100)]}),
+  rating: new FormControl('',{validators: [Validators.required, Validators.min(1),Validators.max(10)]}),
+  brand: new FormControl('', {validators: [Validators.required, Validators.maxLength(20)]}),
+  images: new FormControl('', Validators.required),
+  stock: new FormControl('', {validators: [Validators.required, Validators.min(1)]}),
 })
   
 ngOnInit(): void {
@@ -40,37 +42,56 @@ ngOnInit(): void {
   this.fetchCategories();
 }
 
-fetchProductDetails(id:number){
-  this.apiService.getProductById(id).subscribe(
-    (product) => {
-      console.log('Product Details:', this.updateProduct);
+fetchProductDetails(id: number) {
+  const products = localStorage.getItem('products');
+  if (products) {
+    const parsedProducts = JSON.parse(products);
+    const product = parsedProducts.find((p: any) => p.id === id);
+    if (product) {
+      console.log('Product Details:', product);
       this.updateProduct.patchValue({
+        id: product.id,
         title: product.title,
         price: product.price,
         category: product.category,
         rating: product.rating,
         description: product.description,
         brand: product.brand,
-      })
-    },
-    (error) => {
-      console.error('Error fetching product details:', error);
+        images: product.images, 
+      });
+    } else {
+      console.error('Product not found in localStorage.');
     }
-  );
+  } else {
+    console.error('No products found in localStorage.');
+  }
 }
 
 onSubmit(){
-  if (this.updateProduct.valid && this.productId != null) {
-    this.apiService.putProductById(this.productId,this.updateProduct.value).subscribe(
-      (res)=>{
-        console.log("updated data",res)
-        alert("Details updated")
-      },
-      (error)=>console.log("eror",error)
-    )
+    if (this.updateProduct.valid && this.productId != null) {
+      const products = localStorage.getItem('products');
+      if (products) {
+        const parsedProducts = JSON.parse(products);
+        const productIndex = parsedProducts.findIndex((p: any) => p.id === this.productId);
+        if (productIndex > -1) {
+          parsedProducts[productIndex] = {
+            ...parsedProducts[productIndex],
+            ...this.updateProduct.value, 
+          };
+          localStorage.setItem('products', JSON.stringify(parsedProducts));
+          alert('Product details updated successfully in localStorage.');
+          console.log('Updated product list:', parsedProducts);
+        } else {
+          console.error('Product not found for update.');
+        }
+      } else {
+        console.error('No products found in localStorage.');
+      }
+    } else {
+      console.error('Form is invalid or product ID is null.');
+    }
   }
-  
-}
+ 
 
 fetchCategories() {
   this.apiService.getAllProducts().subscribe(

@@ -1,4 +1,75 @@
 .example-card {
-    max-width: 400px;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; 
+  transition: transform 1s;
+}
 
+.image-container {
+  flex: 1; 
+  max-width: 500px; 
+}
+
+.product-image {
+  width: 100%; 
+  height: auto; 
+  object-fit: cover; }
+
+.details-container {
+  flex: 2;
+  padding: 16px; 
+}
+
+.example-card:hover {
+  transform: scale(1.02);
+}
+
+.no-product-message {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ff0000; 
+}
+
+.reviews-container {
+  margin: 30px;
+  display: flex;
+  gap: 16px;
+}
+
+.review-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.2s;
+  width:50%;
+}
+
+.review-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reviewer-name {
+  font-weight: bold;
+}
+
+.review-rating {
+  color: #ff9800; 
+}
+
+.review-date {
+  font-size: 0.9em;
+  color: #757575;
+}
+
+.review-text {
+  margin-top: 10px;
+  font-size: 1em;
+}

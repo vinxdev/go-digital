@@ -1,11 +1,39 @@
-<mat-toolbar color="primary" class="flex justify-between items-center w-screen">
-    <p class="text-2xl">Prod Dash</p>
-    <div class="flex gap-3">
-      <button mat-flat-button color="accent" routerLink="login" >Login</button>
-      <button mat-flat-button color="success" routerLink="signup">Sign Up</button>
-    </div>
-    <div *ngIf="loggedin">
-       
-    </div>
+<mat-toolbar color="primary" class="flex justify-between w-screen" >
+  <p class="text-2xl cursor-pointer" routerLink="home">Prod Dash</p>
+   <div class="bt"></div>
+<div>
+    <button 
+    class="flex"
+      *ngIf="isrouteractive('/signup')" 
+      mat-flat-button 
+      color="accent" 
+      routerLink="login">
+      Login
+    </button>
+
+    <button 
+      *ngIf="isrouteractive('/login')" 
+      mat-flat-button 
+      color="success" 
+      routerLink="signup">
+      Sign Up
+    </button>
+
+    <button 
+    *ngIf="!isrouteractive('/signup') && !isrouteractive('/login')"  
+    routerLink="/usercart">
+    <p class="text-lg p-5">{{loggedinuser}}</p>
+    </button>
+
+    <button 
+      *ngIf="!isrouteractive('/signup') && !isrouteractive('/login')"  
+      mat-flat-button 
+      color="error" 
+      routerLink="/"
+      (click)="logout()">
+      Logout
+    </button>
+
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

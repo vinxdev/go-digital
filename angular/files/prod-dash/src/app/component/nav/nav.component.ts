@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -8,5 +8,32 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-  loggedin:any;
+  loggedinuser:any
+
+  constructor(private router: Router) { }
+  
+  isrouteractive(route:string){
+   return this.router.url === route
+  }
+
+  logout(){
+    const confirmDelete = confirm("Are you sure you want to logout?");
+    if (confirmDelete == true) {
+      localStorage.setItem('isloggedin','false');
+      localStorage.setItem('loggedInUser','')
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  
+  ngOnInit(): void {
+     const loguser = localStorage.getItem('loggedInUser')
+     if(loguser != null){
+     const user = JSON.parse(loguser)
+     this.loggedinuser = user.name
+     console.log(this.loggedinuser);
+     }
+  }
 }

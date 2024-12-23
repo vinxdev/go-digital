@@ -27,8 +27,11 @@
       <mat-error *ngIf="signUpForm.get('email')?.hasError('required')">
         Email is required
       </mat-error>
-      <mat-error *ngIf="signUpForm.get('email')?.hasError('email')">
+      <!-- <mat-error *ngIf="signUpForm.get('email')?.hasError('email')">
         Invalid email
+      </mat-error> -->
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('pattern')">
+        Invalid email pattern
       </mat-error>
     </mat-form-field>
   
