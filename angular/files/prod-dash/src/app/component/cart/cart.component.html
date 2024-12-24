@@ -18,12 +18,17 @@
             </div>
             <p class="text-xs leading-3 text-gray-600 pt-2">Category : {{cartdetails.category | titlecase}}</p>
             <p class="text-xs leading-3 text-gray-600 py-4">Weight: {{cartdetails.weight}}</p>
-            <p class="w-96 text-xs leading-3 text-gray-600">Rating: {{cartdetails.rating}}</p>
+            <p class="w-96 h-10 text-xs leading-3 text-gray-600">Rating: 
+              <span *ngFor="let jknj of [].constructor(5); let i = index">
+                <mat-icon *ngIf="i < cartdetails.rating" class="text-yellow-500 h-5" >star</mat-icon>
+                <mat-icon *ngIf="i >= cartdetails.rating" class="text-yellow-500 h-5">star_border</mat-icon>
+              </span>
+            </p>
             <div class="flex items-center justify-between pt-5">
               <div class="flex itemms-center">
                 <p class="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"></p>
               </div>
-              <p class="text-base font-black leading-none text-gray-800">${{cartdetails.price * selectedQuantity | number: '2.2-2'}}</p>
+              <p class="text-base font-black leading-none text-gray-800">{{selectedCountry}} {{(cartdetails.price | price ) * selectedQuantity}}</p>
             </div>
           </div>
         </div>
@@ -39,17 +44,18 @@
       <div id="summary" class=" w-full   sm:w-1/4   md:w-1/2     px-8 py-10">
         <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
         <div class="flex justify-between mt-10 mb-5">
-          <span class="font-semibold text-sm uppercase">Items {{selectedQuantity}}</span>
-          <span class="font-semibold text-sm">${{cartdetails.price * selectedQuantity | number: '2.2-2'}}</span>
+          <span class="font-semibold text-sm uppercase">Items {{selectedQuantity}}</span> 
+  
+          
+
+          <!-- <p class="text-base font-black leading-none text-gray-800">
+            {{ convertedPrice | currency:selectedCurrency }}
+          </p> -->
+
+          <span class="font-semibold text-sm">{{selectedCountry}} {{ (cartdetails.price | price ) * selectedQuantity }}</span>
+        
         </div>
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase">
-                Shipping
-              </label>
-          <select class="block p-2 text-gray-600 w-full text-sm">
-                <option>Standard shipping - $10.00</option>
-              </select>
-        </div>
+
         <div class="py-10">
           <label
                 for="promo"
@@ -70,7 +76,7 @@
         <div class="border-t mt-8">
           <div class="flex font-semibold justify-between py-6 text-sm uppercase">
             <span>Total cost</span>
-            <span>${{cartdetails.price * selectedQuantity + 10 | number: '2.2-2'}}</span>
+            <span>{{cartdetails.currency == selectedCountry? cartdetails.currency: selectedCountry}} {{(cartdetails.price | price ) * selectedQuantity}}</span>
           </div>
           <button (click)="addtocart(cartdetails)" class="bg-pink-700 rounded-lg font-semibold hover:bg-pink-800 py-3 text-sm text-white uppercase w-full">
                 Checkout

@@ -15,6 +15,7 @@ export class UpdateComponent {
   productId: number | null = null;
   proddetails: any = [];
   categories: any = [];
+  currency = ['$','₹','€'];
 
 constructor(private apiService : ApiService,private route: ActivatedRoute){ }
 updateProduct = new FormGroup({
@@ -22,7 +23,7 @@ updateProduct = new FormGroup({
   title: new FormControl('', Validators.required),
   price: new FormControl('', {validators: [Validators.required, Validators.min(0.5)]}),
   category: new FormControl('', Validators.required),
-  description: new FormControl('',{validators: [Validators.required, Validators.maxLength(100)]}),
+  description: new FormControl('',{validators: [Validators.required, Validators.maxLength(200)]}),
   rating: new FormControl('',{validators: [Validators.required, Validators.min(1),Validators.max(10)]}),
   brand: new FormControl('', {validators: [Validators.required, Validators.maxLength(20)]}),
   images: new FormControl('', Validators.required),
@@ -58,6 +59,7 @@ fetchProductDetails(id: number) {
         description: product.description,
         brand: product.brand,
         images: product.images, 
+        stock: product.stock,
       });
     } else {
       console.error('Product not found in localStorage.');

@@ -7,7 +7,18 @@ import { map, Observable } from 'rxjs';
 })
 
 export class ApiService {
+
+  //product api
   private baseUrl = 'https://dummyjson.com/products';
+
+  //zipcode api
+
+
+
+  //currency api
+  private apiKey = 'fe2af80ad80013dce9b095d6';
+  private currecyUrl = `https://v6.exchangerate-api.com/v6/${this.apiKey}/latest`;
+
   constructor(private http: HttpClient) {}
 
   //all products
@@ -49,6 +60,12 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/category/${category}`);
   }
 
+  //currency
+  getExchangeRate(currency: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${currency}`);
+  }
+
+  
 }
 
 

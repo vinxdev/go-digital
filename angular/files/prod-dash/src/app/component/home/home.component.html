@@ -44,6 +44,10 @@
 <section>
   <div class="example-button-row ">
     <button mat-button (click)="addProduct()">Create</button>
+    <select [(ngModel)]="selectedCountry" (change)="convertCurrency()" aria-label="Select country" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none rounded-lg">
+      <option value="" disabled>Select Country</option>
+      <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+    </select>
   </div>
 </section>
 
@@ -109,7 +113,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <mat-checkbox 
-            [(ngModel)]="selection[element.id]" 
+            [checked]="selection[element.id]" 
             (change)="toggleRow(element.id)">
           </mat-checkbox>
         </td>

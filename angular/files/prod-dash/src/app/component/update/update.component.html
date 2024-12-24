@@ -20,6 +20,7 @@
           </mat-select>
         </mat-form-field>
       
+
         <mat-form-field  class="form-field">
           <mat-label>Price</mat-label>
           <input matInput formControlName="price" name="price" />
@@ -38,7 +39,7 @@
                 Description is required
             </mat-error>
             <mat-error *ngIf="updateProduct.get('description')?.hasError('maxlength')">
-              Max number of charater is 100
+              Max number of charater is 200
             </mat-error>
           </mat-form-field>
 
@@ -49,14 +50,6 @@
               Rating is required
             </mat-error>
           </mat-form-field>
-
-          <!-- <mat-form-field  class="form-field">
-            <mat-label>Image</mat-label>
-            <input matInput formControlName="image" name="image" type="file"/>
-            <mat-error *ngIf="updateProduct.get('image')?.hasError('required')">
-              image is required
-            </mat-error>
-          </mat-form-field> -->
 
           <mat-form-field  class="form-field">
             <mat-label>brand</mat-label>
@@ -94,10 +87,10 @@
           <mat-form-field class="form-field">
             <mat-label>Stock</mat-label>
             <input matInput formControlName="stock" name="stock" type="number"/>
-            <mat-error *ngIf="updateProduct.get('rating')?.hasError('required')">
+            <mat-error *ngIf="updateProduct.get('stock')?.hasError('required')">
               Stock is required
             </mat-error>
-            <mat-error *ngIf="updateProduct.get('rating')?.hasError('min')">
+            <mat-error *ngIf="updateProduct.get('stock')?.hasError('min')">
               Min must be 1
             </mat-error>
           </mat-form-field>

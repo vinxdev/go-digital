@@ -20,6 +20,7 @@ export class NavComponent {
     const confirmDelete = confirm("Are you sure you want to logout?");
     if (confirmDelete == true) {
       localStorage.setItem('isloggedin','false');
+      this.router.navigate(['/login']);
       localStorage.setItem('loggedInUser','')
       return true
     }

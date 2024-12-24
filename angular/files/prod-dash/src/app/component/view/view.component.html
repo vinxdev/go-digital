@@ -2,8 +2,8 @@
   <mat-card class="example-card flex m-10" appearance="outlined">
     <div class="image-container">
       <img mat-card-image *ngIf="productDetails.images && (typeof productDetails.images === 'string' || productDetails.images.length > 0)"
-        [src]="productDetails.images" 
-        alt="{{ productDetails.title }}" class="product-image">
+      [src]="typeof productDetails.images === 'string' ? productDetails.images : productDetails.images[0]" 
+      alt="{{ productDetails.title }}" class="product-image">
     </div>
 
     <div class="details-container">
@@ -14,7 +14,7 @@
           <mat-card-subtitle><p>{{ productDetails.category | titlecase }}</p></mat-card-subtitle>
         </mat-card-header>
         <p class="m-5">
-          <strong>Price:</strong> ${{ productDetails.price }}
+          <strong>Price:</strong> {{ productDetails.price }}
         </p>
         <p class="m-5 ">
           <strong>Rating:</strong> 
@@ -50,7 +50,7 @@
           <mat-icon *ngIf="i >= item.rating">star_border</mat-icon>
         </span>
       </span>
-      <span class="review-date">{{ item.date | date: 'shortDate' }}</span>
+      <span class="review-date">{{ item.date }}</span>
     </div>
     <p class="review-text">{{ item.comment }}</p>
   </div>

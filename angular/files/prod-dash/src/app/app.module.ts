@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CartComponent } from './component/cart/cart.component';
+import { PricePipe } from './component/cart/price.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CartComponent } from './component/cart/cart.component';
     AddComponent,
     UpdateComponent,
     CartComponent,
+    PricePipe,
   ],
   imports: [
     MatCardModule,

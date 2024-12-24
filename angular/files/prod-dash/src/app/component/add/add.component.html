@@ -20,6 +20,16 @@
         </mat-select>
       </mat-form-field>
     
+    
+      <mat-form-field>
+        <mat-label>Select Currency</mat-label>
+        <mat-select formControlName="currency">
+          <mat-option *ngFor="let item of currency" [value]="item">
+            {{ item }} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field class="form-field">
         <mat-label>Price</mat-label>
         <input matInput formControlName="price" name="price" type="number"/>

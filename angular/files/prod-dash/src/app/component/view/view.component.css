@@ -64,6 +64,10 @@
   color: #ff9800; 
 }
 
+mat-icon {
+  vertical-align: middle; 
+}
+
 .review-date {
   font-size: 0.9em;
   color: #757575;

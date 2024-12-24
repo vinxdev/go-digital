@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import {ChangeDetectionStrategy} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +22,32 @@ export class HomeComponent {
   productname: any;
   checked : boolean = false;
   selection: { [key: number]: boolean } = {};
-
+  selectedQuantity: number = 1; 
+  selectedCountry: string = '';
+  convertedPrice:number = 0;
+  countries = [
+    { name: 'United States', code: 'USA', symbol: '$' },
+    { name: 'Europe', code: 'EUR', symbol: '€' },
+    { name: 'India', code: 'INR', symbol: '₹' },
+  ];
 
   constructor(private router: Router, private apiService: ApiService,) {}
+  convertCurrency(){
+    console.log(this.selectedCountry);
+    if (this.selectedCountry == 'IND') {
+      const storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
+    if (storedProducts.length > 0) {
+      this.dataSource = storedProducts.map((product: any) => ({
+        id: product.id,
+        title: product.title,
+        category: product.category,
+        price: product.price * 75,
+        rating: product.rating,
+      }));
+            
+    } 
+  }
+}
 
   getAllProducts() {
     const storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
@@ -60,7 +84,6 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.getAllProducts();
-    console.log(this.selection);
   }
 
   isAllSelected(): boolean {
@@ -72,13 +95,14 @@ export class HomeComponent {
     const isChecked = event.checked;
     this.dataSource.forEach((row: any) => {
       this.selection[row.id] = isChecked;
+      console.log(this.selection);
     });
   }
 
   toggleRow(rowId: number): void {
     this.selection[rowId] = !this.selection[rowId];
+    console.log("row",this.selection);
   }
-
   
   bulkAddToCart(): void {
     const selectedProducts = this.dataSource.filter((product: any) => {
@@ -105,9 +129,11 @@ export class HomeComponent {
       if (!loggedInUser.cart.some((item: any) => item.name === cartItem.name)) {
         loggedInUser.cart.push(cartItem);
       }
+      else{
+        return alert(`${cartItem.name} product already exists in cart`);
+      }
     });
-  
-    alert('Selected products added to cart!');
+    alert(`${selectedProducts.length} products added to cart!`);
     localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
     const userIndex = signupData.findIndex((user: any) => user.id === loggedInUser.id);
     if (userIndex !== -1) {
@@ -117,9 +143,36 @@ export class HomeComponent {
     console.log('Updated Cart:', loggedInUser.cart);
   }
 
+
   bulkDeleteFromCart(): void {
-   
-}
+    const selectedProducts = this.dataSource.filter((product: any) => {
+      console.log(`Product ID: ${product.id}, Selected: ${this.selection[product.id]}`);
+      return this.selection[product.id];
+    })
+    if (selectedProducts.length === 0) {
+      alert('No products selected!');
+      return;
+    }
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+    const signupData = JSON.parse(localStorage.getItem('signupData') || '[]');
+    if (!loggedInUser || !loggedInUser.id) {
+      alert('Please log in to proceed!');
+      return;
+    }
+    loggedInUser.cart = loggedInUser.cart || [];
+    selectedProducts.forEach((product: any) => {
+      loggedInUser.cart = loggedInUser.cart.filter((item: any) => item.name !== product.title);
+    });
+    alert(`${selectedProducts.length} products removed from cart!`);
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+    const userIndex = signupData.findIndex((user: any) => user.id === loggedInUser.id);
+    if (userIndex !== -1) {
+      signupData[userIndex].cart = loggedInUser.cart;
+      localStorage.setItem('signupData', JSON.stringify(signupData));
+    }
+    console.log('Updated Cart:', loggedInUser.cart);
+  }
+
 
   getcat(item: any) {
     console.log(item);

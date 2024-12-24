@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -12,9 +13,11 @@ export class AddComponent implements OnInit {
   dataSource: any[] = [];
   categories: any[] = [];
   file:any;
+  currency = ['$','₹','€'];
 
   addProduct = new FormGroup({
     title: new FormControl('', Validators.required),
+    currency: new FormControl('', Validators.required),
     price: new FormControl('', {validators: [Validators.required, Validators.min(0.5)]}),
     category: new FormControl('', Validators.required),
     description: new FormControl('',{validators: [Validators.required, Validators.maxLength(100)]}),
@@ -24,7 +27,7 @@ export class AddComponent implements OnInit {
     stock: new FormControl('', {validators: [Validators.required, Validators.min(1)]}),
   });
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService,private router:Router) {}
 
   ngOnInit(): void {
     this.fetchCategories();
@@ -68,12 +71,14 @@ onSubmit() {
     const newProduct = {
       id: nextId,
       title: this.addProduct.value.title,
-      price: this.addProduct.value.price,
+      currency: this.addProduct.value.currency,
+      price: `${this.addProduct.value.currency}${this.addProduct.value.price}`, 
       category: this.addProduct.value.category,
       description: this.addProduct.value.description,
       rating: this.addProduct.value.rating,
       brand: this.addProduct.value.brand,
       images: this.addProduct.value.images, 
+      stock: this.addProduct.value.stock,
     };
 
     products.push(newProduct);
@@ -82,6 +87,7 @@ onSubmit() {
     alert('Product added');
     console.log('Product added to local storage:', newProduct);
   }
+  this.router.navigate(['/login']);
     
 }
 
