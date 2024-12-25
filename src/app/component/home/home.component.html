@@ -1,0 +1,55 @@
+<h1>UserForm</h1>
+    <div class="example-container">
+        <form [formGroup]="userform" (ngSubmit)="onsubmit()">
+            <mat-form-field >
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="name" name="name" />
+                <mat-error *ngIf="userform.get('name')?.hasError('required')">
+                  Name is required
+                </mat-error>
+              </mat-form-field>
+          
+              <mat-form-field >
+                  <mat-label>Contact number</mat-label>
+                  <input matInput formControlName="phone" name="phone" />
+                  <mat-error *ngIf="userform.get('phone')?.hasError('required')">
+                    Contact number is required
+                  </mat-error>
+                  <mat-error *ngIf="userform.get('phone')?.hasError('pattern')">
+                    Only numbers are allowed
+                  </mat-error>
+                </mat-form-field>
+            
+              <mat-form-field  class="form-field">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" name="email" type="email" />
+                <mat-error *ngIf="userform.get('email')?.hasError('required')">
+                  Email is required
+                </mat-error>
+                <mat-error *ngIf="userform.get('email')?.hasError('pattern')">
+                  Invalid email pattern
+                </mat-error>
+              </mat-form-field>
+              <button mat-raised-button color="primary" [disabled]="userform.Invalid">Submit</button>
+        </form>
+      </div>
+      <div>
+        
+    </div>
+
+
+<div class="details">
+    <h1>UserDetails</h1>
+    <table border="1">
+        <tr>
+            <th>Full Name</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+        </tr>
+        <tr *ngFor="let user of userdetails">
+            <td>{{user.name}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+    </table>
+</div>

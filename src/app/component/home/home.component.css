@@ -1,0 +1,34 @@
+.example-container, .details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+form{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* .details{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    
+} */
