@@ -1,0 +1,43 @@
+<div class="example-container">
+    <h1>Hospital Block Form</h1>
+    <form [formGroup]="userform" (ngSubmit)="onsubmit()">
+      
+      
+      <!-- <mat-form-field>
+        <mat-label>blockId</mat-label>
+        <input matInput formControlName="blockId" name="blockId" type="number"/>
+        <mat-error *ngIf="userform.get('blockId')?.hasError('required')">
+            blockId is required
+        </mat-error>
+      </mat-form-field> -->
+
+      <mat-form-field>
+        <mat-label>blockFloor</mat-label>
+        <input matInput formControlName="blockFloor" name="blockFloor" type="number"/>
+        <mat-error *ngIf="userform.get('blockFloor')?.hasError('required')">
+            blockFloor is required
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>blockCode</mat-label>
+        <input matInput formControlName="blockCode" name="blockCode" />
+        <mat-error *ngIf="userform.get('blockCode')?.hasError('required')">
+            blockCode is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>createdOn</mat-label>
+        <input matInput formControlName="createdOn" name="createdOn" type="datetime-local"/>
+        <mat-error *ngIf="userform.get('createdOn')?.hasError('required')">
+            createdOn is required
+        </mat-error>
+      </mat-form-field>
+
+
+      <button mat-raised-button color="primary" [disabled]="userform.invalid">
+        {{editing_mode == true ? 'Update' : 'Submit'}}</button>
+        <button (click)="resetForm()">reset</button>
+    </form>
+  </div>

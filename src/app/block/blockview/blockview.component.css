@@ -44,6 +44,7 @@ mat-form-field {
 }
 
 button {
+    margin: 5px;
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: bold;
@@ -64,7 +65,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-.btn{
+/* .btn{
     display: flex;
     margin: 20px ;
     padding: 10px 20px;
@@ -76,7 +77,7 @@ button:disabled {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+} */
 /* Table Styles */
 table {
     width: 100%;

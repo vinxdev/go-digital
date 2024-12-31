@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from '../../service/api.service';
 
 @Component({
   selector: 'app-home',
@@ -11,22 +12,97 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-userform: any;
-userdetails: any[] = [];
+  userform: FormGroup;
+  userdetails: any[] = [];
+  editing_mode: boolean = false;
 
-  constructor( private http: HttpClient,private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private api: ApiService) {
     this.userform = this.fb.group({
-      name: ['',[Validators.required]],
-      email: ['', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")] ],
-      phone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      accountDetailId: [''],
+      title: ['', Validators.required],
+      body: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
+    this.getall();
   }
 
-  onsubmit(){
-console.log(this.userform.value);
-
+  onsubmit(): void {
+    // if (this.userform.valid) {
+    //   if (this.editing_mode) {
+    //     this.updatepost();
+    //   } else {
+    //     this.create();
+    //   }
+    // }
   }
+
+  create(): void {
+    this.api.createpost(this.userform.value).subscribe(
+      (res: any) => {
+        this.userdetails.push(res);
+        this.userform.reset();
+        localStorage.setItem('userdetails', JSON.stringify(this.userdetails));
+      },
+      (err: any) => {
+        console.error('Error creating user:', err);
+      }
+    );
+  }
+
+  getall(): void {
+        const data = JSON.parse(localStorage.getItem('userdetails') || '[]');
+        if (data.length) {
+          this.userdetails = data;
+        } else {
+          this.api.getallpost().subscribe(
+            (res: any) => {
+              this.userdetails = res;
+              localStorage.setItem('userdetails', JSON.stringify(this.userdetails));
+            }
+        );
+  }
+}
+
+  edit(user: any): void {
+    this.editing_mode = true;
+    this.userform.patchValue(user);
+  }
+
+  // updatepost(): void {
+  //   const id = this.userform.value.id;
+  //   this.api.updatepost(id, this.userform.value).subscribe(
+  //     (res: any) => {
+  //       this.userdetails = this.userdetails.map((user) => 
+  //         user.id === id ? res : user
+  //       );
+  //       localStorage.setItem('userdetails', JSON.stringify(this.userdetails));
+  //       console.log(this.userdetails);
+  //       this.editing_mode = false;
+  //       this.resetForm();
+  //     },
+  //     (err: any) => {
+  //       console.error('Error updating user:', err);
+  //     }
+  //   );
+  // }
+
+  delete(id: number): void {
+    this.api.deletepost(id).subscribe(
+      () => {
+        this.userdetails = this.userdetails.filter((user) => user.id !== id);
+        localStorage.setItem('userdetails', JSON.stringify(this.userdetails));
+      },
+      (err: any) => {
+        console.error('Error deleting user:', err);
+      }
+    );
+  }
+
+  resetForm(): void {
+    this.editing_mode = false;
+    this.userform.reset();
+  }
+  
 }

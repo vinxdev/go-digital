@@ -1,0 +1,41 @@
+<div class="example-container">
+  <h1>Hospital TrainedIn Form</h1>
+  <form [formGroup]="userform" (ngSubmit)="onsubmit()">
+    <mat-form-field>
+      <mat-label>Physician ID</mat-label>
+      <input matInput formControlName="physician" type="number" />
+      <mat-error *ngIf="userform.get('physician')?.hasError('required')">
+        Physician ID is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Treatment ID</mat-label>
+      <input matInput formControlName="treatment" type="number" />
+      <mat-error *ngIf="userform.get('treatment')?.hasError('required')">
+        Treatment ID is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Certification Date</mat-label>
+      <input matInput formControlName="certificationDate" type="datetime-local" />
+      <mat-error *ngIf="userform.get('certificationDate')?.hasError('required')">
+        Certification Date is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Certification Expiry Date</mat-label>
+      <input matInput formControlName="certificationExpires" type="datetime-local" />
+      <mat-error *ngIf="userform.get('certificationExpires')?.hasError('required')">
+        Certification Expiry Date is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="userform.invalid">
+      {{ editing_mode ? 'Update' : 'Submit' }}
+    </button>
+    <button type="button" mat-button (click)="resetForm()">Reset</button>
+  </form>
+</div>

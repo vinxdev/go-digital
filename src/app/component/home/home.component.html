@@ -1,55 +1,46 @@
-<h1>UserForm</h1>
-    <div class="example-container">
-        <form [formGroup]="userform" (ngSubmit)="onsubmit()">
-            <mat-form-field >
-                <mat-label>Full Name</mat-label>
-                <input matInput formControlName="name" name="name" />
-                <mat-error *ngIf="userform.get('name')?.hasError('required')">
-                  Name is required
-                </mat-error>
-              </mat-form-field>
-          
-              <mat-form-field >
-                  <mat-label>Contact number</mat-label>
-                  <input matInput formControlName="phone" name="phone" />
-                  <mat-error *ngIf="userform.get('phone')?.hasError('required')">
-                    Contact number is required
-                  </mat-error>
-                  <mat-error *ngIf="userform.get('phone')?.hasError('pattern')">
-                    Only numbers are allowed
-                  </mat-error>
-                </mat-form-field>
-            
-              <mat-form-field  class="form-field">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="email" name="email" type="email" />
-                <mat-error *ngIf="userform.get('email')?.hasError('required')">
-                  Email is required
-                </mat-error>
-                <mat-error *ngIf="userform.get('email')?.hasError('pattern')">
-                  Invalid email pattern
-                </mat-error>
-              </mat-form-field>
-              <button mat-raised-button color="primary" [disabled]="userform.Invalid">Submit</button>
-        </form>
-      </div>
-      <div>
-        
-    </div>
+<!-- 
+<div class="example-container">
+  <h1>User Form</h1>
+  <form [formGroup]="userform" (ngSubmit)="onsubmit()">
+    <mat-form-field>
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="title" name="title" />
+      <mat-error *ngIf="userform.get('title')?.hasError('required')">
+        Full Name is required
+      </mat-error>
+    </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Contact Number</mat-label>
+      <input matInput formControlName="body" name="body" />
+      <mat-error *ngIf="userform.get('body')?.hasError('required')">
+        Contact Number is required
+      </mat-error>
+    </mat-form-field>
 
-<div class="details">
-    <h1>UserDetails</h1>
-    <table border="1">
-        <tr>
-            <th>Full Name</th>
-            <th>Contact Number</th>
-            <th>Email</th>
-        </tr>
-        <tr *ngFor="let user of userdetails">
-            <td>{{user.name}}</td>
-            <td>{{user.phone}}</td>
-            <td>{{user.email}}</td>
-        </tr>
-    </table>
-</div>
+    <button mat-raised-button color="primary" [disabled]="userform.invalid">
+      {{editing_mode == true ? 'Update' : 'Submit'}}</button>
+      <button (click)="resetForm()">reset</button>
+  </form>
+</div> -->
+
+<!-- <div class="details">
+  <h1>User Details</h1>
+  <table border="1">
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let user of userdetails">
+      <td>{{ user.id }}</td>
+      <td>{{ user.title }}</td>
+      <td>{{ user.body }}</td>
+      <td>
+        <button class="btn" (click)="edit(user)">Edit</button>
+        <button class="btn" (click)="delete(user.id)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div> -->

@@ -1,0 +1,40 @@
+<div class="example-container">
+    <h1>Hospital Medicine Form</h1>
+    <form [formGroup]="userform" (ngSubmit)="onsubmit()">
+      <mat-form-field>
+        <mat-label>name</mat-label>
+        <input matInput formControlName="name" name="name"/>
+        <mat-error *ngIf="userform.get('name')?.hasError('required')">
+            name is required
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>brand</mat-label>
+        <input matInput formControlName="brand" name="brand" />
+        <mat-error *ngIf="userform.get('brand')?.hasError('required')">
+            brand is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>description</mat-label>
+        <input matInput formControlName="description" name="description" />
+        <mat-error *ngIf="userform.get('description')?.hasError('required')">
+            description is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>createdDate</mat-label>
+        <input matInput formControlName="createdDate" name="createdDate" type="date"/>
+        <mat-error *ngIf="userform.get('createdDate')?.hasError('required')">
+            createdDate is required
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" [disabled]="userform.invalid">
+        {{editing_mode == true ? 'Update' : 'Submit'}}</button>
+        <button (click)="resetForm()">reset</button>
+    </form>
+  </div>

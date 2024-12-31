@@ -1,0 +1,24 @@
+<div class="details">
+  <h1>User Details</h1>
+  <table border="1">
+    <tr>
+      <th>physicianId </th>
+      <th>physcianName</th>
+      <th>certificationDate</th>
+      <th>certificationExpires</th>
+      <th>createdOn</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let user of userdetails">
+      <td>{{ user.physicianId }}</td>
+      <td>{{ user.physcianName }}</td>
+      <td>{{ user.certificationDate }}</td>
+      <td>{{user.certificationExpires}}</td>
+      <td>{{user.createdOn}}</td>
+      <td>
+        <button class="btn" (click)="edit(user)">Edit</button>
+        <button class="btn" (click)="delete(user)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</div> 
