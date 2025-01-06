@@ -7,7 +7,6 @@ import { PricePipe } from './price.pipe';
 @Component({
   selector: 'app-cart',
   standalone: false,
-  
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -16,20 +15,12 @@ export class CartComponent{
   productId: number | null = null;
   cartdetails: any;
   selectedQuantity: number = 1; 
-  selectedCountry: string = 'a';
-  convertedPrice:number = 0;
-  countries = [
-    { name: 'United States', code: 'USA', symbol: '$' },
-    { name: 'Europe', code: 'EUR', symbol: '€' },
-    { name: 'India', code: 'INR', symbol: '₹' },
-  ];
- 
+  stockthere: boolean = true
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      // console.log('Extracted ID:', id); 
+      const id = params.get('id'); 
       this.productId = id ? Number(id) : null;
       if (this.productId) {
         this.fetchcartdetails(this.productId);
@@ -37,13 +28,14 @@ export class CartComponent{
         console.error('Invalid or undefined product ID.');
       }
     });
-    this.convertCurrency()
+    this.stockdetails()
   }
 
- convertCurrency(): void {
- 
-}
-
+  stockdetails(){
+    if(this.cartdetails.stock == 0){
+      this.stockthere = false
+    }
+  }
 
   fetchcartdetails(id: number) {
     const storedData = localStorage.getItem('products');
@@ -54,7 +46,6 @@ export class CartComponent{
     }
     const products = JSON.parse(storedData)|| []; 
     this.cartdetails = products.find((product: any) => Number(product.id) === id);
-    this.selectedCountry = this.cartdetails.currency
     if (!this.cartdetails) {
       console.error('Product not found for ID:', id);
     } else {
@@ -81,22 +72,29 @@ export class CartComponent{
     }
   
     const cartItem = {
-      name: this.cartdetails.title,
+      id: this.cartdetails.id,
+      title: this.cartdetails.title,
       quantity: this.selectedQuantity,
+      category: this.cartdetails.category,
+      image: this.cartdetails.images,
       totalPrice: product.price * this.selectedQuantity + 10,
     };
-  
+    console.log(cartItem.category);
+    
     if (!loggedInUser.cart) {
       loggedInUser.cart = [];
+      return
     }
-    const productExists = loggedInUser.cart.find((item: any) => item.name === cartItem.name);
+    const productExists = loggedInUser.cart.find((item: any) => item.id === cartItem.id);
     if (productExists) {
       alert('Product already exists in your cart!');
+      // loggedInUser.cart.length = 0
+      // localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+      return;
     } else {
       loggedInUser.cart.push(cartItem);
       alert('Product added to cart!');
-
-    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+      localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
     const userIndex = signupData.findIndex((user: any) => user.id === loggedInUser.id);
     if (userIndex !== -1) {
       signupData[userIndex].cart = loggedInUser.cart;
@@ -118,5 +116,6 @@ export class CartComponent{
     }
     this.fetchcartdetails(this.productId!); 
     console.log('Updated Cart:', loggedInUser.cart);
+    window.location.reload()
   }
 }

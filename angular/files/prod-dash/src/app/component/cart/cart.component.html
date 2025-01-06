@@ -12,12 +12,13 @@
           <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
             <div class="flex items-center justify-between w-full">
               <p class="text-base font-black leading-none text-gray-800">{{cartdetails.title}}</p>
-              <select [(ngModel)]="selectedQuantity" aria-label="Select quantity" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
+              <select *ngIf="stockthere" [(ngModel)]="selectedQuantity" aria-label="Select quantity" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
                 <option  *ngFor="let quantity of [].constructor(cartdetails.stock); let i = index" [value]="i + 1">{{ i + 1 }}</option>
               </select>
             </div>
             <p class="text-xs leading-3 text-gray-600 pt-2">Category : {{cartdetails.category | titlecase}}</p>
-            <p class="text-xs leading-3 text-gray-600 py-4">Weight: {{cartdetails.weight}}</p>
+            <p class="text-xs leading-3 text-gray-600 pt-2">Weight: {{cartdetails.weight}}</p>
+            <p *ngIf="stockthere else nostock" class="text-xs leading-3 text-gray-600 pt-2">Stock: {{cartdetails.stock}}</p>
             <p class="w-96 h-10 text-xs leading-3 text-gray-600">Rating: 
               <span *ngFor="let jknj of [].constructor(5); let i = index">
                 <mat-icon *ngIf="i < cartdetails.rating" class="text-yellow-500 h-5" >star</mat-icon>
@@ -28,7 +29,7 @@
               <div class="flex itemms-center">
                 <p class="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"></p>
               </div>
-              <p class="text-base font-black leading-none text-gray-800">{{selectedCountry}} {{(cartdetails.price | price ) * selectedQuantity}}</p>
+              <p class="text-base font-black leading-none text-gray-800">{{cartdetails.price * selectedQuantity  | currency : cartdetails.currency}}</p>
             </div>
           </div>
         </div>
@@ -46,13 +47,11 @@
         <div class="flex justify-between mt-10 mb-5">
           <span class="font-semibold text-sm uppercase">Items {{selectedQuantity}}</span> 
   
-          
-
           <!-- <p class="text-base font-black leading-none text-gray-800">
             {{ convertedPrice | currency:selectedCurrency }}
           </p> -->
 
-          <span class="font-semibold text-sm">{{selectedCountry}} {{ (cartdetails.price | price ) * selectedQuantity }}</span>
+          <span class="font-semibold text-sm">{{cartdetails.price * selectedQuantity  | currency : cartdetails.currency}}</span>
         
         </div>
 
@@ -76,10 +75,11 @@
         <div class="border-t mt-8">
           <div class="flex font-semibold justify-between py-6 text-sm uppercase">
             <span>Total cost</span>
-            <span>{{cartdetails.currency == selectedCountry? cartdetails.currency: selectedCountry}} {{(cartdetails.price | price ) * selectedQuantity}}</span>
+            <span>{{cartdetails.price * selectedQuantity  | currency : cartdetails.currency}}</span>
+            <!-- {{ element.price | currency : selectedCountry}} -->
           </div>
           <button (click)="addtocart(cartdetails)" class="bg-pink-700 rounded-lg font-semibold hover:bg-pink-800 py-3 text-sm text-white uppercase w-full">
-                Checkout
+                Add to Cart
               </button>
         </div>
       </div>
@@ -89,3 +89,8 @@
   <ng-template #noproduct>
     <p class="no-product-message">Product details not available</p>
   </ng-template>
+
+  <ng-template #nostock>
+    <p class="text-red-500 font-medium text-lg pt-2">Temporarily out of stock</p>
+  </ng-template>
+

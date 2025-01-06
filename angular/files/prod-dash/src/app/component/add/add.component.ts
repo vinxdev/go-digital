@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import { defineComponents, IgcRatingComponent } from 'igniteui-webcomponents';
 
 @Component({
   selector: 'app-add',
@@ -15,9 +16,10 @@ export class AddComponent implements OnInit {
   file:any;
   currency = ['$','₹','€'];
 
+
   addProduct = new FormGroup({
     title: new FormControl('', Validators.required),
-    currency: new FormControl('', Validators.required),
+    currency: new FormControl(''),
     price: new FormControl('', {validators: [Validators.required, Validators.min(0.5)]}),
     category: new FormControl('', Validators.required),
     description: new FormControl('',{validators: [Validators.required, Validators.maxLength(100)]}),
@@ -48,17 +50,17 @@ export class AddComponent implements OnInit {
   //   }
   // }
 
-onFileSelected(event:any){
-    this.file = event.target.files[0];
-    let reader = new FileReader();
-    reader.onload = (event:any) => {
-      console.log(reader.result);
-      this.addProduct.patchValue({images:event.target.result})
-      console.log('Updated form value for images:', this.addProduct.get('images')?.value);
-      console.log('not yet');
-    }
-     reader.readAsDataURL(this.file)
- }
+// onFileSelected(event:any){
+//     this.file = event.target.files[0];
+//     let reader = new FileReader();
+//     reader.onload = (event:any) => {
+//       console.log(reader.result);
+//       this.addProduct.patchValue({images:event.target.result})
+//       console.log('Updated form value for images:', this.addProduct.get('images')?.value);
+//       console.log('not yet');
+//     }
+//      reader.readAsDataURL(this.file)
+//  }
 
  
 onSubmit() {
@@ -72,7 +74,7 @@ onSubmit() {
       id: nextId,
       title: this.addProduct.value.title,
       currency: this.addProduct.value.currency,
-      price: `${this.addProduct.value.currency}${this.addProduct.value.price}`, 
+      price: `${this.addProduct.value.price}`, 
       category: this.addProduct.value.category,
       description: this.addProduct.value.description,
       rating: this.addProduct.value.rating,
@@ -89,6 +91,11 @@ onSubmit() {
   }
   this.router.navigate(['/login']);
     
+}
+
+ratingChanged(event:any){
+  this.addProduct.patchValue({rating: event.target.value});
+  console.log('Updated form value for rating:', this.addProduct.get('rating')?.value);
 }
 
   fetchCategories() {

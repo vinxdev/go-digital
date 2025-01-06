@@ -8,6 +8,8 @@ import { AddComponent } from './component/add/add.component';
 import { UpdateComponent } from './component/update/update.component';
 import { guardGuard } from './component/guard/guard.guard';
 import { CartComponent } from './component/cart/cart.component';
+import { BuyComponent } from './component/buy/buy.component';
+import { UsercartComponent } from './component/usercart/usercart.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,15 @@ const routes: Routes = [
     component: CartComponent,
     canActivate:[guardGuard]
   },
+  {
+    path: `buy`,
+    component: BuyComponent,
+    canActivate:[guardGuard]
+  },
+  {
+    path: 'usercart',
+    component: UsercartComponent,
+  }
 ];
 
 @NgModule({

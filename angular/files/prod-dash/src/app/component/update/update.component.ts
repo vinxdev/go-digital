@@ -93,7 +93,12 @@ onSubmit(){
       console.error('Form is invalid or product ID is null.');
     }
   }
- 
+
+  ratingChanged(event:any){
+    this.updateProduct.patchValue({rating: event.target.value});
+    console.log('Updated form value for rating:', this.updateProduct.get('rating')?.value);
+  }
+  
 
 fetchCategories() {
   this.apiService.getAllProducts().subscribe(

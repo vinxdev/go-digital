@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class ApiService {
 
   //zipcode api
 
-
+  private pincodeurl = "https://api.postalpincode.in/pincode";
 
   //currency api
   private apiKey = 'fe2af80ad80013dce9b095d6';
@@ -65,6 +65,17 @@ export class ApiService {
     return this.http.get<any>(`${this.baseUrl}/${currency}`);
   }
 
+  //getpincode
+  getpincode(pincode:string):Observable<any>{
+    return this.http.get(`${this.pincodeurl}/${pincode}`)
+  }
+
+  //getitemcount
+  getitemcount(): Observable<any>{
+    const cart = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+    const itemcount = cart.items.length;
+    return itemcount
+  }
   
 }
 

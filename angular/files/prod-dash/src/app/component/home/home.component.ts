@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, viewChild } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { HomeModule } from '../../modules/home/home.module';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import {ChangeDetectionStrategy} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { retry } from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +14,7 @@ import { retry } from 'rxjs';
 
 export class HomeComponent {
 
-  displayedColumns: string[] = ['title', 'category', 'price', 'rating', 'action', 'select'];
+  displayedColumns: string[] = ['title', 'category', 'price', 'rating', 'action']; // 'select'
   dataSource: any[] = [];
   categories: any[] = [];
   productname: any;
@@ -24,30 +22,18 @@ export class HomeComponent {
   selection: { [key: number]: boolean } = {};
   selectedQuantity: number = 1; 
   selectedCountry: string = '';
-  convertedPrice:number = 0;
+  convertedPrice:number = 1;
+  newprice:number = 1;
+  readonly dialog = inject(MatDialog);
+
   countries = [
-    { name: 'United States', code: 'USA', symbol: '$' },
+    { name: 'United States', code: 'USD', symbol: '$' },
     { name: 'Europe', code: 'EUR', symbol: '€' },
     { name: 'India', code: 'INR', symbol: '₹' },
   ];
 
   constructor(private router: Router, private apiService: ApiService,) {}
-  convertCurrency(){
-    console.log(this.selectedCountry);
-    if (this.selectedCountry == 'IND') {
-      const storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
-    if (storedProducts.length > 0) {
-      this.dataSource = storedProducts.map((product: any) => ({
-        id: product.id,
-        title: product.title,
-        category: product.category,
-        price: product.price * 75,
-        rating: product.rating,
-      }));
-            
-    } 
-  }
-}
+ 
 
   getAllProducts() {
     const storedProducts = JSON.parse(localStorage.getItem('products') || '[]');
@@ -56,12 +42,15 @@ export class HomeComponent {
         id: product.id,
         title: product.title,
         category: product.category,
-        price: product.price,
+        price:product.price,
+        original_price:product.price,
         rating: product.rating,
       }));
       this.categories = [...new Set(storedProducts.map((x: any) => x.category))];
       console.log('products from local storage:', this.dataSource);
     }
+
+
     // } else {
     //   this.apiService.getAllProducts().subscribe(
     //     (result: any) => {
@@ -83,8 +72,68 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.getAllProducts();
+    this.getAllProducts(); 
+    this.selectedcountry();
+    this.convertCurrency()
+
   }
+
+  convertCurrency() {
+    switch (this.selectedCountry) {
+      case 'INR':
+        this.convertedPrice = 85;
+        break;
+      case 'EUR':
+        this.convertedPrice = 0.96;
+        break;
+      default:
+        this.convertedPrice = 1; 
+    }
+    this.updateprice();
+  }
+
+// Math.floor(Math.random()*100)
+
+  // updateprice(){
+  //   this.dataSource.forEach((product: any) => {
+  //     product.price = product.original_price * this.convertedPrice
+  //     this.newprice = product.price
+  //     })
+  //    const pr = JSON.parse(localStorage.getItem('products') || '[]')  
+  //   pr.forEach((product:any) => {
+  //     product.price = this.newprice
+  //   });
+  //   localStorage.setItem('products', JSON.stringify(pr))
+  // }
+
+  updateprice() {
+    if (!this.selectedCountry) return;
+  
+    const pr = JSON.parse(localStorage.getItem('products') || '[]');
+    this.dataSource.forEach((product: any) => {
+      product.price = parseFloat((product.original_price * this.convertedPrice).toFixed(2));
+    });
+    const updatedProducts = pr.map((product: any) => {
+      const updatedProduct = this.dataSource.find((p: any) => p.id === product.id);
+      if (updatedProduct) {
+        return { ...product, price: updatedProduct.price, currency: this.selectedCountry };
+      }
+      return product;
+    });
+    localStorage.setItem('products', JSON.stringify(updatedProducts));
+  }
+
+  selectedcountry(){
+    const country = JSON.parse(localStorage.getItem('products') || '{}')
+    if (country[0].currency) {
+      this.selectedCountry = country[0].currency
+      console.log(this.selectedCountry);
+    }
+    else{
+      this.selectedCountry = 'USD'
+    }
+  }
+
 
   isAllSelected(): boolean {
     const numSelected = Object.values(this.selection).filter((selected) => selected).length;
@@ -171,6 +220,11 @@ export class HomeComponent {
       localStorage.setItem('signupData', JSON.stringify(signupData));
     }
     console.log('Updated Cart:', loggedInUser.cart);
+  }
+
+
+  smarta(){
+    this.dialog.open(DialogComponent);
   }
 
 

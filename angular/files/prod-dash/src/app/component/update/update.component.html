@@ -47,7 +47,7 @@
             <mat-label>Image url</mat-label>
             <input matInput formControlName="images" name="images" />
             <mat-error *ngIf="updateProduct.get('images')?.hasError('required')">
-              Rating is required
+              Image is required
             </mat-error>
           </mat-form-field>
 
@@ -62,19 +62,13 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field  class="form-field">
+          <div class="bg-red-100 h-14 text-gray-700 flex flex-row items-center justify-between p-2 rounded-t-md mb-4 border-b-2 border-gray-500" >
             <mat-label>Rating</mat-label>
-            <input matInput formControlName="rating" name="rating" />
-            <mat-error *ngIf="updateProduct.get('rating')?.hasError('required')">
-              Rating is required
-            </mat-error>
-            <mat-error *ngIf="updateProduct.get('rating')?.hasError('min')">
-              Rating is must be between 1 to 10
-            </mat-error>
-            <mat-error *ngIf="updateProduct.get('rating')?.hasError('max')">
-              Rating is must be between 1 to 10
-            </mat-error>
-          </mat-form-field>
+            <igc-rating value="ratingVal" min="1" max="5" class="text-red-700" (igcChange)="ratingChanged($event);"></igc-rating>
+          </div>
+          <p *ngIf="updateProduct.get('rating')?.touched  && updateProduct.get('rating')?.hasError('required')">
+            Rating is required
+          </p>
 
           <mat-form-field class="form-field">
             <mat-label>Image url</mat-label>

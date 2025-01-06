@@ -19,16 +19,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    
-    
-      <mat-form-field>
-        <mat-label>Select Currency</mat-label>
-        <mat-select formControlName="currency">
-          <mat-option *ngFor="let item of currency" [value]="item">
-            {{ item }} 
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
       <mat-form-field class="form-field">
         <mat-label>Price</mat-label>
@@ -62,21 +52,15 @@
           Max number of charater is 20
         </mat-error>
       </mat-form-field>
-
-      <mat-form-field class="form-field">
-        <mat-label>Rating</mat-label>
-        <input matInput formControlName="rating" name="rating" type="number"/>
-        <mat-error *ngIf="addProduct.get('rating')?.hasError('required')">
+      
+        <div class="bg-red-100 h-14 text-gray-700 flex flex-row items-center justify-between p-2 rounded-t-md mb-4 border-b-2 border-gray-500" >
+          <mat-label>Rating</mat-label>
+          <igc-rating value="ratingVal" min="1" max="5" class="text-red-700" (igcChange)="ratingChanged($event);"></igc-rating>
+        </div>
+        <p *ngIf="addProduct.get('rating')?.touched  && addProduct.get('rating')?.hasError('required')">
           Rating is required
-        </mat-error>
-          <mat-error *ngIf="addProduct.get('rating')?.hasError('min')">
-          Rating is must be between 1 to 10
-        </mat-error>
-        <mat-error *ngIf="addProduct.get('rating')?.hasError('max')">
-          Rating is must be between 1 to 10
-        </mat-error>
-      </mat-form-field>
-
+        </p>
+      
       <mat-form-field class="form-field">
         <mat-label>Image url</mat-label>
         <input matInput formControlName="images" name="images" />
@@ -95,6 +79,7 @@
           Min must be 1
         </mat-error>
       </mat-form-field>
+
 
     <div class="flex flex-col m-4">
       <button mat-stroked-button color="primary" type="submit" [disabled]="!addProduct.valid">

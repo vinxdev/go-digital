@@ -15,7 +15,7 @@
         <mat-select>
           <mat-option (click)="getAllProducts()">All</mat-option>
           <div *ngFor="let item of categories">
-            <mat-option [value]="item" (click)="getcat(item)">{{item}}</mat-option>
+            <mat-option [value]="item" (click)="getcat(item)" >{{item}}</mat-option>
           </div>  
           <!-- <mat-option>{{item.category}}</mat-option> -->
         </mat-select>
@@ -41,20 +41,25 @@
   </form>
 </div>
 
-<section>
-  <div class="example-button-row ">
-    <button mat-button (click)="addProduct()">Create</button>
-    <select [(ngModel)]="selectedCountry" (change)="convertCurrency()" aria-label="Select country" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none rounded-lg">
-      <option value="" disabled>Select Country</option>
-      <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
-    </select>
-  </div>
-</section>
+<div class="flex justify-center items-center py-4">
+  <select [(ngModel)]="selectedCountry" (change)="convertCurrency()" aria-label="Select country" class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none rounded-lg">
+    <option value="" disabled>Select Country</option>
+    <option *ngFor="let country of countries" [value]="country.code" selected={{selectedCountry}}>{{ country.name }}</option>
+  </select>
+</div>
 
-<div>
+  <div class="flex justify-center items-center py-6">
+    <button mat-button (click)="addProduct()">Create</button>
+  </div>
+
+<div class="flex justify-center items-center py-4">
+  <button mat-button (click)="smarta()">Modify Cart</button>
+</div>
+
+<!-- <div>
   <button mat-button (click)="bulkAddToCart()">Bulk Add to Cart</button>
   <button mat-button (click)="bulkDeleteFromCart()">Bulk Remove from Cart</button>
-</div>
+</div> -->
 
 </div>  
 
@@ -76,7 +81,7 @@
     <!-- Price Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef> Price ($)</th>
-      <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.price | currency : selectedCountry}} </td>
     </ng-container>
 
      <!-- action Column -->
@@ -104,6 +109,7 @@
         </td>
       </ng-container>
 
+      <!-- columns for select all and select row
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef> 
           <mat-checkbox 
@@ -117,7 +123,7 @@
             (change)="toggleRow(element.id)">
           </mat-checkbox>
         </td>
-      </ng-container>
+      </ng-container> -->
 
     <!-- Rating Column -->
     <ng-container matColumnDef="rating">

@@ -20,6 +20,16 @@
     </button>
 
     <button 
+      *ngIf="!isrouteractive('/signup') && !isrouteractive('/login')"  
+      routerLink="/usercart">
+      <mat-icon 
+      class="flex items-center justify-center size-5"
+      matBadge={{cartitems}} matBadgeOverlap="false"
+      routerLink="/usercart"
+      >shopping_cart</mat-icon>
+    </button>
+
+    <button 
     *ngIf="!isrouteractive('/signup') && !isrouteractive('/login')"  
     routerLink="/usercart">
     <p class="text-lg p-5">{{loggedinuser}}</p>

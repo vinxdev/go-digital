@@ -9,6 +9,7 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 export class NavComponent {
   loggedinuser:any
+  cartitems:number=0
 
   constructor(private router: Router) { }
   
@@ -36,5 +37,14 @@ export class NavComponent {
      this.loggedinuser = user.name
      console.log(this.loggedinuser);
      }
+    this.cartitemcount()
   }
+
+  cartitemcount(){
+    const cart = JSON.parse(localStorage.getItem('loggedInUser') || '{}')
+    this.cartitems = cart.cart.length
+    console.log(this.cartitems); 
+  }
+
+
 }

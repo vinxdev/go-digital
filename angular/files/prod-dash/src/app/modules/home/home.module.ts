@@ -30,7 +30,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
   ],
   providers: [
     provideHttpClient(),
-    
   ]
 })
 

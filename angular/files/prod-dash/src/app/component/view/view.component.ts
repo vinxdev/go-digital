@@ -39,6 +39,10 @@ export class ViewComponent implements OnInit {
     }, 1000); 
   }
 
+  buy(id:number){
+    this.router.navigateByUrl(`/buy/${id}`);
+  }
+
   fetchProductDetails(id: number) {
     const storedData = localStorage.getItem('products');
     console.log(storedData);
